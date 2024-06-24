@@ -2,15 +2,13 @@
   <NuxtPage />
 </template>
 
-<script setup lang="ts">
-import { onMounted } from 'vue'
-import { useCharactersStore } from '~/stores/characters'
+<script setup lang="ts"></script>
 
-const charactersStore = useCharactersStore()
-
-onMounted(() => {
-  if (charactersStore.characters.length === 0) {
-    charactersStore.fetchCharacters()
-  }
-})
-</script>
+<style>
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+</style>

@@ -9,7 +9,9 @@
                 :length="totalPages"
                 class="my-4"
               ></v-pagination>
-              <div v-if="loading">Loading...</div>
+               <div v-if="loading" class="loading-container">
+              <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
+            </div>
               <div v-else>
                 <div v-for="planet in planets" :key="planet.url">
                   <h2>{{ planet.name }}</h2>

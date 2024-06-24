@@ -1,6 +1,5 @@
-// stores/characters.ts
 import { defineStore } from 'pinia'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
 interface Character {
   name: string;
@@ -29,7 +28,7 @@ export const useCharactersStore = defineStore('characters', {
 
       try {
         while (nextUrl) {
-          const response = await axios.get<ApiResponse>(nextUrl)
+          const response: AxiosResponse<ApiResponse> = await axios.get<ApiResponse>(nextUrl)
           allCharacters.push(...response.data.results)
           nextUrl = response.data.next
         }

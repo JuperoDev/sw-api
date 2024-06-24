@@ -4,7 +4,9 @@
         <v-row justify="center">
           <v-col cols="8">
             <v-container class="max-width">
-              <div v-if="loading">Loading...</div>
+               <div v-if="loading" class="loading-container">
+              <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
+            </div>
               <div v-else>
                 <div v-for="film in films" :key="film.url">
                   <h2>{{ film.title }}</h2>

@@ -3,7 +3,9 @@
       <v-container>
         <v-row justify="center">
           <v-col cols="8">
-            <div v-if="loading">Loading...</div>
+             <div v-if="loading" class="loading-container">
+              <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
+            </div>
             <div v-else-if="error">An error occurred: {{ error }}</div>
             <div v-else-if="starship">
               <h1>{{ starship.name }}</h1>

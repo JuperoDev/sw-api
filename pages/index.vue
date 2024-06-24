@@ -1,4 +1,3 @@
-<!-- pages/characters.vue -->
 <template>
   <div class="p-4">
     <v-autocomplete
@@ -8,13 +7,12 @@
       hide-no-data
       hide-selected
       label="Search for a character"
-      @change="onCharacterSelect"
     ></v-autocomplete>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCharactersStore } from '~/stores/characters'
 
@@ -33,12 +31,12 @@ const characterNames = computed(() =>
   charactersStore.characters.map(character => character.name)
 )
 
-const onCharacterSelect = (url: string) => {
-  const selectedCharacter = charactersStore.characters.find(character => character.name === url)
+watch(search, (newValue) => {
+  const selectedCharacter = charactersStore.characters.find(character => character.name === newValue)
   if (selectedCharacter) {
     const id = selectedCharacter.url.split('/').filter(Boolean).pop()
-    router.push(`/people/${id}`)
+    const targetUrl = `/people/${id}`
+    router.push(targetUrl)
   }
-}
+})
 </script>
-

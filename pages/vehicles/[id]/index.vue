@@ -23,9 +23,9 @@
                 <h2>Pilots</h2>
                 <div v-for="pilot in pilots" :key="pilot.url">
                   <p>{{ pilot.name }}</p>
-                  <nuxt-link :to="getPilotLink(pilot.url)">
+                  <NuxtLink :to="getPilotLink(pilot.url)">
                     <v-btn color="primary">View Pilot</v-btn>
-                  </nuxt-link>
+                  </NuxtLink>
                 </div>
               </div>
   
@@ -34,9 +34,9 @@
                 <h2>Films</h2>
                 <div v-for="film in films" :key="film.url">
                   <p>{{ film.title }}</p>
-                  <nuxt-link :to="getFilmLink(film.url)">
+                  <NuxtLink :to="getFilmLink(film.url)">
                     <v-btn color="primary">View Film</v-btn>
-                  </nuxt-link>
+                  </NuxtLink>
                 </div>
               </div>
             </div>

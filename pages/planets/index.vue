@@ -21,9 +21,9 @@
                   <p><strong>Terrain:</strong> {{ planet.terrain }}</p>
                   <p><strong>Surface Water:</strong> {{ planet.surface_water }}%</p>
                   <p><strong>Population:</strong> {{ planet.population }}</p>
-                  <nuxt-link :to="getPlanetLink(planet.url)">
+                  <NuxtLink :to="getPlanetLink(planet.url)">
                     <v-btn color="primary">View Details</v-btn>
-                  </nuxt-link>
+                  </NuxtLink>
                   <hr>
                 </div>
               </div>

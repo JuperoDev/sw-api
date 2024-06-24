@@ -21,9 +21,9 @@
               <h2>Residents</h2>
               <div v-for="resident in residents" :key="resident.url">
                 <p>{{ resident.name }}</p>
-                <nuxt-link :to="getResidentLink(resident.url)">
+                <NuxtLink :to="getResidentLink(resident.url)">
                   <v-btn color="primary">View Resident</v-btn>
-                </nuxt-link>
+                </NuxtLink>
               </div>
             </div>
 
@@ -32,9 +32,9 @@
               <h2>Films</h2>
               <div v-for="film in films" :key="film.url">
                 <p>{{ film.title }}</p>
-                <nuxt-link :to="getFilmLink(film.url)">
+                <NuxtLink :to="getFilmLink(film.url)">
                   <v-btn color="primary">View Film</v-btn>
-                </nuxt-link>
+                </NuxtLink>
               </div>
             </div>
           </div>

@@ -21,9 +21,9 @@
                   <p><strong>Eye Colors:</strong> {{ species.eye_colors }}</p>
                   <p><strong>Average Lifespan:</strong> {{ species.average_lifespan }} years</p>
                   <p><strong>Language:</strong> {{ species.language }}</p>
-                  <nuxt-link :to="getSpeciesLink(species.url)">
+                  <NuxtLink :to="getSpeciesLink(species.url)">
                     <v-btn color="primary">View Details</v-btn>
-                  </nuxt-link>
+                  </NuxtLink>
                   <hr>
                 </div>
               </div>

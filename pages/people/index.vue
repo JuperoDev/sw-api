@@ -20,9 +20,9 @@
                   <p><strong>Eye Color:</strong> {{ person.eye_color }}</p>
                   <p><strong>Birth Year:</strong> {{ person.birth_year }}</p>
                   <p><strong>Gender:</strong> {{ person.gender }}</p>
-                  <nuxt-link :to="getPersonLink(person.url)">
+                  <NuxtLink :to="getPersonLink(person.url)">
                     <v-btn color="primary">More Information</v-btn>
-                  </nuxt-link>
+                  </NuxtLink>
                   <hr>
                 </div>
               </div>

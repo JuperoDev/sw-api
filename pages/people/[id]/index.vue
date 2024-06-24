@@ -19,9 +19,9 @@
               <div v-if="homeworld">
                 <h2>Homeworld</h2>
                 <p>{{ homeworld.name }}</p>
-                <nuxt-link :to="getHomeworldLink(person.homeworld)">
+                <NuxtLink :to="getHomeworldLink(person.homeworld)">
                   <v-btn color="primary">View Homeworld</v-btn>
-                </nuxt-link>
+                </NuxtLink>
               </div>
   
               <!-- Render film titles with buttons -->
@@ -29,9 +29,9 @@
                 <h2>Films</h2>
                 <div v-for="film in films" :key="film.url">
                   <p>{{ film.title }}</p>
-                  <nuxt-link :to="getFilmLink(film.url)">
+                  <NuxtLink :to="getFilmLink(film.url)">
                     <v-btn color="primary">View Film</v-btn>
-                  </nuxt-link>
+                  </NuxtLink>
                 </div>
               </div>
   
@@ -40,9 +40,9 @@
                 <h2>Vehicles</h2>
                 <div v-for="vehicle in vehicles" :key="vehicle.url">
                   <p>{{ vehicle.name }}</p>
-                  <nuxt-link :to="getVehicleLink(vehicle.url)">
+                  <NuxtLink :to="getVehicleLink(vehicle.url)">
                     <v-btn color="primary">View Vehicle</v-btn>
-                  </nuxt-link>
+                  </NuxtLink>
                 </div>
               </div>
   
@@ -51,9 +51,9 @@
                 <h2>Starships</h2>
                 <div v-for="starship in starships" :key="starship.url">
                   <p>{{ starship.name }}</p>
-                  <nuxt-link :to="getStarshipLink(starship.url)">
+                  <NuxtLink :to="getStarshipLink(starship.url)">
                     <v-btn color="primary">View Starship</v-btn>
-                  </nuxt-link>
+                  </NuxtLink>
                 </div>
               </div>
             </div>

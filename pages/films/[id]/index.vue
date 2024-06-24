@@ -19,9 +19,9 @@
                 <h2>Characters</h2>
                 <div v-for="character in characters" :key="character.url">
                   <p>{{ character.name }}</p>
-                  <nuxt-link :to="getCharacterLink(character.url)">
+                  <NuxtLink :to="getCharacterLink(character.url)">
                     <v-btn color="primary">View Character</v-btn>
-                  </nuxt-link>
+                  </NuxtLink>
                 </div>
               </div>
   
@@ -30,9 +30,9 @@
                 <h2>Planets</h2>
                 <div v-for="planet in planets" :key="planet.url">
                   <p>{{ planet.name }}</p>
-                  <nuxt-link :to="getPlanetLink(planet.url)">
+                  <NuxtLink :to="getPlanetLink(planet.url)">
                     <v-btn color="primary">View Planet</v-btn>
-                  </nuxt-link>
+                  </NuxtLink>
                 </div>
               </div>
   
@@ -41,9 +41,9 @@
                 <h2>Starships</h2>
                 <div v-for="starship in starships" :key="starship.url">
                   <p>{{ starship.name }}</p>
-                  <nuxt-link :to="getStarshipLink(starship.url)">
+                  <NuxtLink :to="getStarshipLink(starship.url)">
                     <v-btn color="primary">View Starship</v-btn>
-                  </nuxt-link>
+                  </NuxtLink>
                 </div>
               </div>
   
@@ -52,9 +52,9 @@
                 <h2>Vehicles</h2>
                 <div v-for="vehicle in vehicles" :key="vehicle.url">
                   <p>{{ vehicle.name }}</p>
-                  <nuxt-link :to="getVehicleLink(vehicle.url)">
+                  <NuxtLink :to="getVehicleLink(vehicle.url)">
                     <v-btn color="primary">View Vehicle</v-btn>
-                  </nuxt-link>
+                  </NuxtLink>
                 </div>
               </div>
   
@@ -63,9 +63,9 @@
                 <h2>Species</h2>
                 <div v-for="specie in species" :key="specie.url">
                   <p>{{ specie.name }}</p>
-                  <nuxt-link :to="getSpeciesLink(specie.url)">
+                  <NuxtLink :to="getSpeciesLink(specie.url)">
                     <v-btn color="primary">View Species</v-btn>
-                  </nuxt-link>
+                  </NuxtLink>
                 </div>
               </div>
             </div>

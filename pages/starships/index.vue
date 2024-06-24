@@ -23,9 +23,9 @@
                   <p><strong>Cargo Capacity:</strong> {{ starship.cargo_capacity }} kg</p>
                   <p><strong>Consumables:</strong> {{ starship.consumables }}</p>
                   <p><strong>Starship Class:</strong> {{ starship.starship_class }}</p>
-                  <nuxt-link :to="getStarshipLink(starship.url)">
+                  <NuxtLink :to="getStarshipLink(starship.url)">
                     <v-btn color="primary">View Details</v-btn>
-                  </nuxt-link>
+                  </NuxtLink>
                   <hr>
                 </div>
               </div>

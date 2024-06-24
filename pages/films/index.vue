@@ -12,9 +12,9 @@
                   <p><strong>Director:</strong> {{ film.director }}</p>
                   <p><strong>Producer:</strong> {{ film.producer }}</p>
                   <p><strong>Release Date:</strong> {{ film.release_date }}</p>
-                  <nuxt-link :to="getFilmLink(film.url)">
+                  <NuxtLink :to="getFilmLink(film.url)">
                     <v-btn color="primary">View Details</v-btn>
-                  </nuxt-link>
+                  </NuxtLink>
                   <hr>
                 </div>
               </div>

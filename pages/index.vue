@@ -23,9 +23,9 @@
                   <p><strong>Cargo Capacity:</strong> {{ vehicle.cargo_capacity }} kg</p>
                   <p><strong>Consumables:</strong> {{ vehicle.consumables }}</p>
                   <p><strong>Vehicle Class:</strong> {{ vehicle.vehicle_class }}</p>
-                  <nuxt-link :to="getVehicleLink(vehicle.url)">
+                  <NuxtLink :to="getVehicleLink(vehicle.url)">
                     <v-btn color="primary">View Details</v-btn>
-                  </nuxt-link>
+                  </NuxtLink>
                   <hr>
                 </div>
               </div>

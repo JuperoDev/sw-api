@@ -20,9 +20,9 @@
               <div v-if="homeworld">
                 <h2>Homeworld</h2>
                 <p>{{ homeworld.name }}</p>
-                <nuxt-link :to="getHomeworldLink(species.homeworld)">
+                <NuxtLink :to="getHomeworldLink(species.homeworld)">
                   <v-btn color="primary">View Homeworld</v-btn>
-                </nuxt-link>
+                </NuxtLink>
               </div>
   
               <!-- Render people with buttons -->
@@ -30,9 +30,9 @@
                 <h2>People</h2>
                 <div v-for="person in people" :key="person.url">
                   <p>{{ person.name }}</p>
-                  <nuxt-link :to="getPersonLink(person.url)">
+                  <NuxtLink :to="getPersonLink(person.url)">
                     <v-btn color="primary">View Person</v-btn>
-                  </nuxt-link>
+                  </NuxtLink>
                 </div>
               </div>
   
@@ -41,9 +41,9 @@
                 <h2>Films</h2>
                 <div v-for="film in films" :key="film.url">
                   <p>{{ film.title }}</p>
-                  <nuxt-link :to="getFilmLink(film.url)">
+                  <NuxtLink :to="getFilmLink(film.url)">
                     <v-btn color="primary">View Film</v-btn>
-                  </nuxt-link>
+                  </NuxtLink>
                 </div>
               </div>
             </div>

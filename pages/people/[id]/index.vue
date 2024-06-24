@@ -17,11 +17,10 @@
             <p><strong>Birth Year:</strong> {{ person.birth_year }}</p>
             <p><strong>Gender:</strong> {{ person.gender }}</p>
 
-            
-            <HomeworldSection v-if="homeworld" :homeworld="homeworld" > </HomeworldSection>
-            <FilmSection :films="films"> </FilmSection>
-            <VehiclesSection :vehicles="vehicles"> </VehiclesSection>
-            <StarshipsSection :starships="starships"> </StarshipsSection>
+            <HomeworldSection v-if="homeworld" :homeworld="homeworld" title="Homeworld" />
+            <FilmSection :films="films" />
+            <VehiclesSection :vehicles="vehicles" />
+            <StarshipsSection :starships="starships" />
           </div>
         </v-col>
       </v-row>
@@ -33,6 +32,12 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
+
+// Import the components
+import HomeworldSection from '~/components/HomeworldSection.vue'
+import FilmSection from '~/components/FilmSection.vue'
+import VehiclesSection from '~/components/VehiclesSection.vue'
+import StarshipsSection from '~/components/StarshipsSection.vue'
 
 // Define interfaces
 interface Person {
@@ -150,12 +155,3 @@ onMounted(() => {
   fetchPerson(id)
 })
 </script>
-
-<style scoped>
-.loading-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-</style>

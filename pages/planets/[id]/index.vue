@@ -3,9 +3,9 @@
     <v-container>
       <v-row justify="center">
         <v-col cols="8">
-           <div v-if="loading" class="loading-container">
-              <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
-            </div>
+          <div v-if="loading" class="loading-container">
+            <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
+          </div>
           <div v-else-if="error">An error occurred: {{ error }}</div>
           <div v-else-if="planet">
             <h1>{{ planet.name }}</h1>
@@ -18,27 +18,8 @@
             <p><strong>Surface Water:</strong> {{ planet.surface_water }}%</p>
             <p><strong>Population:</strong> {{ planet.population }}</p>
 
-            <!-- Render residents with buttons -->
-            <div v-if="residents.length">
-              <h2>Residents</h2>
-              <div v-for="resident in residents" :key="resident.url">
-                <p>{{ resident.name }}</p>
-                <NuxtLink :to="getResidentLink(resident.url)">
-                  <v-btn color="primary">View Resident</v-btn>
-                </NuxtLink>
-              </div>
-            </div>
-
-            <!-- Render films with buttons -->
-            <div v-if="films.length">
-              <h2>Films</h2>
-              <div v-for="film in films" :key="film.url">
-                <p>{{ film.title }}</p>
-                <NuxtLink :to="getFilmLink(film.url)">
-                  <v-btn color="primary">View Film</v-btn>
-                </NuxtLink>
-              </div>
-            </div>
+            <ResidentsSection :residents="residents" />
+            <FilmSection :films="films" />
           </div>
         </v-col>
       </v-row>
@@ -50,6 +31,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
+
 
 // Define interfaces
 interface Planet {
@@ -125,18 +107,9 @@ const fetchFilms = async (filmUrls: string[]) => {
   }
 }
 
-const getResidentLink = (url: string): string => {
-  const id = url.split('/').filter(Boolean).pop()
-  return `/people/${id}`
-}
-
-const getFilmLink = (url: string): string => {
-  const id = url.split('/').filter(Boolean).pop()
-  return `/films/${id}`
-}
-
 onMounted(() => {
   const id = route.params.id as string
   fetchPlanet(id)
 })
 </script>
+

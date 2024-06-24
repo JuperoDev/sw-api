@@ -16,12 +16,8 @@
     </div>
   </template>
 
-<script>
-export default {
-  data() {
-    return {
-      page: 1,
-    }
-  },
-}
+<script setup>
+import { ref } from 'vue'
+
+const page = ref(1)
 </script>

@@ -2,7 +2,7 @@
   <div class="person-details">
     <v-container>
       <v-row justify="center">
-        <v-col cols="8">
+       
           <div v-if="loading" class="loading-container">
             <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
           </div>
@@ -22,7 +22,7 @@
             <VehiclesSection :vehicles="vehicles" />
             <StarshipsSection :starships="starships" />
           </div>
-        </v-col>
+       
       </v-row>
     </v-container>
   </div>

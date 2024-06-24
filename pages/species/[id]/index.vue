@@ -2,7 +2,7 @@
   <div class="species-details">
     <v-container>
       <v-row justify="center">
-        <v-col cols="8">
+       
           <div v-if="loading" class="loading-container">
             <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
           </div>
@@ -22,7 +22,7 @@
             <CharactersSection :characters="people" />
             <FilmSection :films="films" />
           </div>
-        </v-col>
+       
       </v-row>
     </v-container>
   </div>

@@ -1,6 +1,8 @@
 <template>
   <div>
-hola
+sdf
+<v-btn>Hola</v-btn>
+
   </div>
 </template>
 

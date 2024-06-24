@@ -89,5 +89,5 @@
   
   watch(page, fetchVehicles)
   </script>
+
   
- 

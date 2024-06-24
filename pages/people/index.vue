@@ -29,22 +29,40 @@
       </v-container>
     </div>
   </template>
-  
-  <script setup>
+  <script setup lang="ts">
   import { ref, watch, onMounted } from 'vue'
   import axios from 'axios'
   
+  interface Person {
+    name: string;
+    height: string;
+    mass: string;
+    hair_color: string;
+    skin_color: string;
+    eye_color: string;
+    birth_year: string;
+    gender: string;
+    url: string;
+  }
+  
+  interface ApiResponse {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: Person[];
+  }
+  
   const page = ref(1)
-  const people = ref([])
+  const people = ref<Person[]>([])
   const loading = ref(false)
-  const totalPages = ref(0) // Initially set to 0 to be updated dynamically
+  const totalPages = ref(0) 
   
   const fetchData = async () => {
     loading.value = true
     try {
-      const response = await axios.get(`https://swapi.dev/api/people/?page=${page.value}`)
+      const response = await axios.get<ApiResponse>(`https://swapi.dev/api/people/?page=${page.value}`)
       people.value = response.data.results
-      totalPages.value = Math.ceil(response.data.count / 10) // Assuming 10 items per page
+      totalPages.value = Math.ceil(response.data.count / 10) 
     } catch (error) {
       console.error('Error fetching data:', error)
     } finally {
@@ -55,9 +73,9 @@
   const initialize = async () => {
     loading.value = true
     try {
-      const response = await axios.get('https://swapi.dev/api/people/?page=1')
+      const response = await axios.get<ApiResponse>('https://swapi.dev/api/people/?page=1')
       people.value = response.data.results
-      totalPages.value = Math.ceil(response.data.count / 10) // Assuming 10 items per page
+      totalPages.value = Math.ceil(response.data.count / 10) 
     } catch (error) {
       console.error('Error fetching initial data:', error)
     } finally {

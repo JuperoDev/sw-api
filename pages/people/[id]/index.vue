@@ -16,43 +16,12 @@
             <p><strong>Eye Color:</strong> {{ person.eye_color }}</p>
             <p><strong>Birth Year:</strong> {{ person.birth_year }}</p>
             <p><strong>Gender:</strong> {{ person.gender }}</p>
+
             
-            <!-- Render homeworld -->
-            <div v-if="homeworld">
-              <h2>Homeworld</h2>
-              <p>{{ homeworld.name }}</p>
-              <NuxtLink :to="getHomeworldLink(person.homeworld)">
-                <v-btn color="primary">View Homeworld</v-btn>
-              </NuxtLink>
-              <p>{{ getHomeworldLink(person.homeworld) }}</p>
-            </div>
-  
-            <!-- Render film titles with buttons -->
-            <FilmSection :films="films" />
-  
-            <!-- Render vehicles with buttons -->
-            <div v-if="vehicles.length">
-              <h2>Vehicles</h2>
-              <div v-for="vehicle in vehicles" :key="vehicle.url">
-                <p>{{ vehicle.name }}</p>
-                <NuxtLink :to="getVehicleLink(vehicle.url)">
-                  <v-btn color="primary">View Vehicle</v-btn>
-                </NuxtLink>
-                <p>{{ getVehicleLink(vehicle.url) }}</p>
-              </div>
-            </div>
-  
-            <!-- Render starships with buttons -->
-            <div v-if="starships.length">
-              <h2>Starships</h2>
-              <div v-for="starship in starships" :key="starship.url">
-                <p>{{ starship.name }}</p>
-                <NuxtLink :to="getStarshipLink(starship.url)">
-                  <v-btn color="primary">View Starship</v-btn>
-                </NuxtLink>
-                <p>{{ getStarshipLink(starship.url) }}</p>
-              </div>
-            </div>
+            <HomeworldSection v-if="homeworld" :homeworld="homeworld" > </HomeworldSection>
+            <FilmSection :films="films"> </FilmSection>
+            <VehiclesSection :vehicles="vehicles"> </VehiclesSection>
+            <StarshipsSection :starships="starships"> </StarshipsSection>
           </div>
         </v-col>
       </v-row>
@@ -64,7 +33,6 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
-import FilmSection from '~/components/FilmSection.vue'
 
 // Define interfaces
 interface Person {
@@ -103,6 +71,7 @@ interface Starship {
 
 interface Homeworld {
   name: string;
+  url: string;
 }
 
 const route = useRoute()
@@ -170,25 +139,10 @@ const fetchStarships = async (starshipUrls: string[]) => {
 const fetchHomeworld = async (homeworldUrl: string) => {
   try {
     const response = await axios.get<Homeworld>(homeworldUrl)
-    homeworld.value = response.data
+    homeworld.value = { ...response.data, url: homeworldUrl }
   } catch (err) {
     console.error('Failed to fetch homeworld', err)
   }
-}
-
-const getVehicleLink = (url: string): string => {
-  const id = url.split('/').filter(Boolean).pop()
-  return `/vehicles/${id}`
-}
-
-const getStarshipLink = (url: string): string => {
-  const id = url.split('/').filter(Boolean).pop()
-  return `/starships/${id}`
-}
-
-const getHomeworldLink = (url: string): string => {
-  const id = url.split('/').filter(Boolean).pop()
-  return `/planets/${id}`
 }
 
 onMounted(() => {
@@ -197,4 +151,11 @@ onMounted(() => {
 })
 </script>
 
-
+<style scoped>
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+</style>

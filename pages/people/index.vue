@@ -20,6 +20,9 @@
                   <p><strong>Eye Color:</strong> {{ person.eye_color }}</p>
                   <p><strong>Birth Year:</strong> {{ person.birth_year }}</p>
                   <p><strong>Gender:</strong> {{ person.gender }}</p>
+                  <nuxt-link :to="getPersonLink(person.url)">
+                    <v-btn color="primary">More Information</v-btn>
+                  </nuxt-link>
                   <hr>
                 </div>
               </div>
@@ -29,10 +32,11 @@
       </v-container>
     </div>
   </template>
+  
   <script setup lang="ts">
   import { ref, watch, onMounted } from 'vue'
   import axios from 'axios'
-  
+
   interface Person {
     name: string;
     height: string;
@@ -45,6 +49,7 @@
     url: string;
   }
   
+
   interface ApiResponse {
     count: number;
     next: string | null;
@@ -52,17 +57,19 @@
     results: Person[];
   }
   
+
   const page = ref(1)
   const people = ref<Person[]>([])
   const loading = ref(false)
   const totalPages = ref(0) 
   
+
   const fetchData = async () => {
     loading.value = true
     try {
       const response = await axios.get<ApiResponse>(`https://swapi.dev/api/people/?page=${page.value}`)
       people.value = response.data.results
-      totalPages.value = Math.ceil(response.data.count / 10) 
+      totalPages.value = Math.ceil(response.data.count / 10) // Assuming 10 items per page
     } catch (error) {
       console.error('Error fetching data:', error)
     } finally {
@@ -70,6 +77,7 @@
     }
   }
   
+
   const initialize = async () => {
     loading.value = true
     try {
@@ -83,7 +91,15 @@
     }
   }
   
+
+  const getPersonLink = (url: string): string => {
+    const id = url.split('/').filter(Boolean).pop() 
+    return `/people/${id}`
+  }
+  
+
   onMounted(initialize)
   
+
   watch(page, fetchData)
   </script>

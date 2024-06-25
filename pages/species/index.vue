@@ -1,9 +1,10 @@
 <template>
   <div class="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center relative">
+    
     <v-container>
       <v-row justify="center">
         
-          <v-container class="max-w-full text-center lg:text-left mb-8 lg:mb-0">
+          <v-container class="max-w-full text-center  mt-10 lg:text-left mb-8 lg:mb-0">
             <div class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-gray-900 py-4 w-full z-50">
               <v-pagination
                 v-model="page"

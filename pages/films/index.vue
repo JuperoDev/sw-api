@@ -1,9 +1,11 @@
 <template>
-  <div class="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center">
+  <div class="min-h-screen bg-gray-900 text-white flex flex-col  items-center justify-center">
+    
     <v-container>
+      
       <v-row justify="center">
        
-          <v-container class="max-w-full text-center lg:text-left mb-8 lg:mb-0">
+          <v-container class="max-w-full text-center mt-10 lg:text-left mb-8 lg:mb-0">
             <div v-if="loading" class="flex justify-center items-center py-4">
               <v-progress-circular indeterminate color="teal" size="64"></v-progress-circular>
             </div>
@@ -24,6 +26,8 @@
        
       </v-row>
     </v-container>
+
+    
   </div>
 </template>
 

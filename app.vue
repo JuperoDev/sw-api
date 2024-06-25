@@ -1,5 +1,6 @@
 <template>
   <NuxtPage />
+  <NavigationComponent/>
 </template>
 
 <script setup lang="ts"></script>

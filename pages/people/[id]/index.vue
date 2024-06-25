@@ -1,33 +1,42 @@
 <template>
-  <div class="person-details">
+  <div class="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center">
     <v-container>
       <v-row justify="center">
-       
-          <div v-if="loading" class="loading-container">
-            <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
-          </div>
-          <div v-else-if="error">An error occurred: {{ error }}</div>
-          <div v-else-if="person">
-            <h1>{{ person.name }}</h1>
-            <p><strong>Height:</strong> {{ person.height }} cm</p>
-            <p><strong>Mass:</strong> {{ person.mass }} kg</p>
-            <p><strong>Hair Color:</strong> {{ person.hair_color }}</p>
-            <p><strong>Skin Color:</strong> {{ person.skin_color }}</p>
-            <p><strong>Eye Color:</strong> {{ person.eye_color }}</p>
-            <p><strong>Birth Year:</strong> {{ person.birth_year }}</p>
-            <p><strong>Gender:</strong> {{ person.gender }}</p>
+        <div v-if="loading" class="flex justify-center items-center py-4">
+          <v-progress-circular indeterminate color="teal" size="64"></v-progress-circular>
+        </div>
+        <div v-else-if="error" class="text-red-500 text-center lg:text-left py-4">
+          An error occurred: {{ error }}
+        </div>
+        <div v-else-if="person" class="my-4 p-4 bg-gray-800 rounded-lg w-full max-w-3xl">
+          <h1 class="text-3xl lg:text-4xl font-bold mb-4">{{ person.name }}</h1>
+          <p><strong>Height:</strong> {{ person.height }} cm</p>
+          <p><strong>Mass:</strong> {{ person.mass }} kg</p>
+          <p><strong>Hair Color:</strong> {{ person.hair_color }}</p>
+          <p><strong>Skin Color:</strong> {{ person.skin_color }}</p>
+          <p><strong>Eye Color:</strong> {{ person.eye_color }}</p>
+          <p><strong>Birth Year:</strong> {{ person.birth_year }}</p>
+          <p><strong>Gender:</strong> {{ person.gender }}</p>
 
-            <HomeworldSection v-if="homeworld" :homeworld="homeworld" title="Homeworld" />
-            <FilmSection :films="films" />
-            <VehiclesSection :vehicles="vehicles" />
-            <StarshipsSection :starships="starships" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+            <div class="flex flex-col space-y-4">
+              <HomeworldSection v-if="homeworld" :homeworld="homeworld" title="Homeworld" />
+            </div>
+            <div class="flex flex-col space-y-4">
+              <FilmSection :films="films" />
+            </div>
+            <div class="flex flex-col space-y-4">
+              <VehiclesSection :vehicles="vehicles" />
+            </div>
+            <div class="flex flex-col space-y-4">
+              <StarshipsSection :starships="starships" />
+            </div>
           </div>
-       
+        </div>
       </v-row>
     </v-container>
   </div>
 </template>
-
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'

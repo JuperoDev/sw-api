@@ -1,33 +1,40 @@
 <template>
-  <div class="vehicle-details">
+  <div class="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center">
     <v-container>
       <v-row justify="center">
-       
-          <div v-if="loading" class="loading-container">
-            <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
-          </div>
-          <div v-else-if="error">An error occurred: {{ error }}</div>
-          <div v-else-if="vehicle">
-            <h1>{{ vehicle.name }}</h1>
-            <p><strong>Model:</strong> {{ vehicle.model }}</p>
-            <p><strong>Manufacturer:</strong> {{ vehicle.manufacturer }}</p>
-            <p><strong>Cost in Credits:</strong> {{ vehicle.cost_in_credits }}</p>
-            <p><strong>Length:</strong> {{ vehicle.length }} meters</p>
-            <p><strong>Max Atmosphering Speed:</strong> {{ vehicle.max_atmosphering_speed }} km/h</p>
-            <p><strong>Crew:</strong> {{ vehicle.crew }}</p>
-            <p><strong>Passengers:</strong> {{ vehicle.passengers }}</p>
-            <p><strong>Cargo Capacity:</strong> {{ vehicle.cargo_capacity }} kg</p>
-            <p><strong>Consumables:</strong> {{ vehicle.consumables }}</p>
-            <p><strong>Vehicle Class:</strong> {{ vehicle.vehicle_class }}</p>
+        <div v-if="loading" class="flex justify-center items-center py-4">
+          <v-progress-circular indeterminate color="teal" size="64"></v-progress-circular>
+        </div>
+        <div v-else-if="error" class="text-red-500 text-center lg:text-left py-4">
+          An error occurred: {{ error }}
+        </div>
+        <div v-else-if="vehicle" class="my-4 p-4 bg-gray-800 rounded-lg w-full max-w-3xl">
+          <h1 class="text-3xl lg:text-4xl font-bold mb-4">{{ vehicle.name }}</h1>
+          <p><strong>Model:</strong> {{ vehicle.model }}</p>
+          <p><strong>Manufacturer:</strong> {{ vehicle.manufacturer }}</p>
+          <p><strong>Cost in Credits:</strong> {{ vehicle.cost_in_credits }}</p>
+          <p><strong>Length:</strong> {{ vehicle.length }} meters</p>
+          <p><strong>Max Atmosphering Speed:</strong> {{ vehicle.max_atmosphering_speed }} km/h</p>
+          <p><strong>Crew:</strong> {{ vehicle.crew }}</p>
+          <p><strong>Passengers:</strong> {{ vehicle.passengers }}</p>
+          <p><strong>Cargo Capacity:</strong> {{ vehicle.cargo_capacity }} kg</p>
+          <p><strong>Consumables:</strong> {{ vehicle.consumables }}</p>
+          <p><strong>Vehicle Class:</strong> {{ vehicle.vehicle_class }}</p>
 
-            <PilotsSection :pilots="pilots" />
-            <FilmSection :films="films" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+            <div class="flex flex-col space-y-4">
+              <PilotsSection :pilots="pilots" />
+            </div>
+            <div class="flex flex-col space-y-4">
+              <FilmSection :films="films" />
+            </div>
           </div>
-       
+        </div>
       </v-row>
     </v-container>
   </div>
 </template>
+
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'

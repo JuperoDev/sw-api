@@ -1,35 +1,42 @@
 <template>
-  <div class="starship-details">
+  <div class="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center">
     <v-container>
       <v-row justify="center">
-       
-          <div v-if="loading" class="loading-container">
-            <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
-          </div>
-          <div v-else-if="error">An error occurred: {{ error }}</div>
-          <div v-else-if="starship">
-            <h1>{{ starship.name }}</h1>
-            <p><strong>Model:</strong> {{ starship.model }}</p>
-            <p><strong>Manufacturer:</strong> {{ starship.manufacturer }}</p>
-            <p><strong>Cost in Credits:</strong> {{ starship.cost_in_credits }}</p>
-            <p><strong>Length:</strong> {{ starship.length }} meters</p>
-            <p><strong>Max Atmosphering Speed:</strong> {{ starship.max_atmosphering_speed }} km/h</p>
-            <p><strong>Crew:</strong> {{ starship.crew }}</p>
-            <p><strong>Passengers:</strong> {{ starship.passengers }}</p>
-            <p><strong>Cargo Capacity:</strong> {{ starship.cargo_capacity }} kg</p>
-            <p><strong>Consumables:</strong> {{ starship.consumables }}</p>
-            <p><strong>Starship Class:</strong> {{ starship.starship_class }}</p>
-            <p><strong>Hyperdrive Rating:</strong> {{ starship.hyperdrive_rating }}</p>
-            <p><strong>MGLT:</strong> {{ starship.MGLT }}</p>
+        <div v-if="loading" class="flex justify-center items-center py-4">
+          <v-progress-circular indeterminate color="teal" size="64"></v-progress-circular>
+        </div>
+        <div v-else-if="error" class="text-red-500 text-center lg:text-left py-4">
+          An error occurred: {{ error }}
+        </div>
+        <div v-else-if="starship" class="my-4 p-4 bg-gray-800 rounded-lg w-full max-w-3xl">
+          <h1 class="text-3xl lg:text-4xl font-bold mb-4">{{ starship.name }}</h1>
+          <p><strong>Model:</strong> {{ starship.model }}</p>
+          <p><strong>Manufacturer:</strong> {{ starship.manufacturer }}</p>
+          <p><strong>Cost in Credits:</strong> {{ starship.cost_in_credits }}</p>
+          <p><strong>Length:</strong> {{ starship.length }} meters</p>
+          <p><strong>Max Atmosphering Speed:</strong> {{ starship.max_atmosphering_speed }} km/h</p>
+          <p><strong>Crew:</strong> {{ starship.crew }}</p>
+          <p><strong>Passengers:</strong> {{ starship.passengers }}</p>
+          <p><strong>Cargo Capacity:</strong> {{ starship.cargo_capacity }} kg</p>
+          <p><strong>Consumables:</strong> {{ starship.consumables }}</p>
+          <p><strong>Starship Class:</strong> {{ starship.starship_class }}</p>
+          <p><strong>Hyperdrive Rating:</strong> {{ starship.hyperdrive_rating }}</p>
+          <p><strong>MGLT:</strong> {{ starship.MGLT }}</p>
 
-            <PilotsSection :pilots="pilots" />
-            <FilmSection :films="films" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+            <div class="flex flex-col space-y-4">
+              <PilotsSection :pilots="pilots" />
+            </div>
+            <div class="flex flex-col space-y-4">
+              <FilmSection :films="films" />
+            </div>
           </div>
-       
+        </div>
       </v-row>
     </v-container>
   </div>
 </template>
+
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'

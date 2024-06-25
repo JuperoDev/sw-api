@@ -1,6 +1,6 @@
 
 <template>
-  <footer class="bg-teal-950 text-white py-4 rounded-lg fixed bottom-4 left-0 right-0 mx-4 shadow-lg z-50">
+  <footer class="bg-zinc-900 text-white py-4 rounded-lg fixed bottom-4 left-0 right-0 mx-4 shadow-lg z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-around">
         <NuxtLink to="/" class="hover:underline text-gray-400">Home</NuxtLink>

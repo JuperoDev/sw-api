@@ -10,8 +10,6 @@
         <NuxtLink to="/starships" class="hover:underline text-gray-400">Starships</NuxtLink>
         <NuxtLink to="/vehicles" class="hover:underline text-gray-400">Vehicles</NuxtLink>
         <NuxtLink to="/species" class="hover:underline text-gray-400">Species</NuxtLink>
-        <NuxtLink to="/residents" class="hover:underline text-gray-400">Residents</NuxtLink>
-        <NuxtLink to="/pilots" class="hover:underline text-gray-400">Pilots</NuxtLink>
       </div>
     </div>
   </footer>

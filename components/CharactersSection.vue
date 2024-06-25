@@ -1,14 +1,15 @@
 <template>
-    <div v-if="characters.length">
-      <h2>Characters</h2>
-      <div v-for="character in characters" :key="character.url">
-        <p>{{ character.name }}</p>
-        <NuxtLink :to="getCharacterLink(character.url)">
-          <v-btn color="primary">View Character</v-btn>
-        </NuxtLink>
-      </div>
+  <div v-if="characters.length" class="bg-gray-800 p-4 rounded-lg mb-4">
+    <h2 class="text-2xl font-bold mb-4">Characters</h2>
+    <div v-for="character in characters" :key="character.url" class="mb-4">
+      <p class="mb-2">{{ character.name }}</p>
+      <NuxtLink :to="getCharacterLink(character.url)">
+        <v-btn color="secondary">View Character</v-btn>
+      </NuxtLink>
     </div>
-  </template>
+  </div>
+</template>
+
   
   <script setup lang="ts">
   interface Character {

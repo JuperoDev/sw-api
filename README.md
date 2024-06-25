@@ -6,6 +6,12 @@ This project relies on  https://swapi.dev/ and it is built with Nuxt3 + Pinia + 
 
 Use `nuxt dev` for development and `npx vitest` for testing. More details below. 
 
+## Note:
+
+### Dynamic Routes Approach:
+
+If I were more familiar with the API at the beginning, I would have made just two dynamic routes to handle the different entities (e.g., [page] and [id]). However, without knowing all the details initially, I chose an approach that created multiple dynamic routes for each entity type. This approach may lead to some repetition, but it was the fastest solution at the time to get the project working correctly.
+
 ## Setup
 
 Make sure to install the dependencies:

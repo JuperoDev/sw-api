@@ -15,7 +15,7 @@
   <script setup lang="ts">
   import { ref, computed, onMounted, watch } from 'vue'
   import { useRouter } from 'vue-router'
-  import { useCharactersStore } from '~/stores/characters'
+  import { useCharactersStore } from '../stores/characters'
   
   const search = ref('')
   const router = useRouter()

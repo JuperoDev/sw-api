@@ -176,4 +176,3 @@ onMounted(() => {
   fetchFilm(id)
 })
 </script>
-

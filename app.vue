@@ -1,6 +1,7 @@
 <template>
   <NuxtPage />
   <NavigationComponent/>
+  <ScrollToTopArrow/>
 </template>
 
 <script setup lang="ts"></script>

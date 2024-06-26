@@ -1,16 +1,10 @@
+// characters.ts
 import { defineStore } from 'pinia'
 import axios, { AxiosResponse } from 'axios'
 
 interface Character {
   name: string;
   url: string;
-}
-
-interface ApiResponse {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: Character[];
 }
 
 export const useCharactersStore = defineStore('characters', {
@@ -21,6 +15,12 @@ export const useCharactersStore = defineStore('characters', {
   }),
   actions: {
     async fetchCharacters() {
+      const storedCharacters = localStorage.getItem('characters')
+      if (storedCharacters) {
+        this.characters = JSON.parse(storedCharacters)
+        return
+      }
+
       this.loading = true
       this.error = null
       let nextUrl: string | null = 'https://swapi.dev/api/people/'
@@ -28,11 +28,12 @@ export const useCharactersStore = defineStore('characters', {
 
       try {
         while (nextUrl) {
-          const response: AxiosResponse<ApiResponse> = await axios.get<ApiResponse>(nextUrl)
+          const response: AxiosResponse<any> = await axios.get(nextUrl)
           allCharacters.push(...response.data.results)
           nextUrl = response.data.next
         }
         this.characters = allCharacters
+        localStorage.setItem('characters', JSON.stringify(allCharacters))
       } catch (error) {
         this.error = 'Failed to fetch characters'
       } finally {

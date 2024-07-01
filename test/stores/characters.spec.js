@@ -1,4 +1,3 @@
-// test/stores/characters.spec.js
 import { setActivePinia, createPinia } from 'pinia';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { useCharactersStore } from '../../stores/characters';
@@ -9,6 +8,7 @@ vi.mock('axios');
 describe('characters store', () => {
   beforeEach(() => {
     setActivePinia(createPinia());
+    localStorage.clear();  // Clear localStorage to ensure no data persists between tests
   });
 
   it('initializes with default values', () => {

@@ -102,10 +102,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.loading-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
+
 </style>

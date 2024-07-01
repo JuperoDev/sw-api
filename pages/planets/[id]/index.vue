@@ -1,6 +1,5 @@
 <template>
   <div class="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center">
-    
     <v-container>
       <v-row justify="center">
         <div v-if="loading" class="flex justify-center mt-10 items-center py-4">
@@ -34,38 +33,15 @@
   </div>
 </template>
 
-
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
-
-
-// Define interfaces
-interface Planet {
-  name: string;
-  rotation_period: string;
-  orbital_period: string;
-  diameter: string;
-  climate: string;
-  gravity: string;
-  terrain: string;
-  surface_water: string;
-  population: string;
-  residents: string[];
-  films: string[];
-  url: string;
-}
-
-interface Resident {
-  name: string;
-  url: string;
-}
-
-interface Film {
-  title: string;
-  url: string;
-}
+import ResidentsSection from '~/components/ResidentsSection.vue'
+import FilmSection from '~/components/FilmSection.vue'
+import { Planet } from '~/sw-types/planet'
+import { Resident } from '~/sw-types/resident'
+import { Film } from '~/sw-types/film'
 
 const route = useRoute()
 const planet = ref<Planet | null>(null)
@@ -89,29 +65,33 @@ const fetchPlanet = async (id: string) => {
 }
 
 const fetchAdditionalDetails = async (planet: Planet) => {
-  await Promise.all([
-    fetchResidents(planet.residents),
-    fetchFilms(planet.films)
-  ])
+  const residentsPromise = planet.residents ? fetchResidents(planet.residents) : Promise.resolve();
+  const filmsPromise = planet.films ? fetchFilms(planet.films) : Promise.resolve();
+  
+  await Promise.all([residentsPromise, filmsPromise]);
 }
 
-const fetchResidents = async (residentUrls: string[]) => {
-  const residentPromises = residentUrls.map(url => axios.get<Resident>(url))
-  try {
-    const residentResponses = await Promise.all(residentPromises)
-    residents.value = residentResponses.map(response => response.data)
-  } catch (err) {
-    console.error('Failed to fetch residents', err)
+const fetchResidents = async (residentUrls?: string[]) => {
+  if (residentUrls) {
+    const residentPromises = residentUrls.map(url => axios.get<Resident>(url))
+    try {
+      const residentResponses = await Promise.all(residentPromises)
+      residents.value = residentResponses.map(response => response.data)
+    } catch (err) {
+      console.error('Failed to fetch residents', err)
+    }
   }
 }
 
-const fetchFilms = async (filmUrls: string[]) => {
-  const filmPromises = filmUrls.map(url => axios.get<Film>(url))
-  try {
-    const filmResponses = await Promise.all(filmPromises)
-    films.value = filmResponses.map(response => response.data)
-  } catch (err) {
-    console.error('Failed to fetch films', err)
+const fetchFilms = async (filmUrls?: string[]) => {
+  if (filmUrls) {
+    const filmPromises = filmUrls.map(url => axios.get<Film>(url))
+    try {
+      const filmResponses = await Promise.all(filmPromises)
+      films.value = filmResponses.map(response => response.data)
+    } catch (err) {
+      console.error('Failed to fetch films', err)
+    }
   }
 }
 
@@ -121,3 +101,11 @@ onMounted(() => {
 })
 </script>
 
+<style scoped>
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+</style>

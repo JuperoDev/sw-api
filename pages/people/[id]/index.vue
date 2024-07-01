@@ -1,7 +1,5 @@
 <template>
-  
   <div class="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center">
-    
     <v-container>
       <v-row justify="center">
         <div v-if="loading" class="flex justify-center mt-10 items-center py-4">
@@ -39,56 +37,20 @@
     </v-container>
   </div>
 </template>
+
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
-
-// Import the components
 import HomeworldSection from '~/components/HomeworldSection.vue'
 import FilmSection from '~/components/FilmSection.vue'
 import VehiclesSection from '~/components/VehiclesSection.vue'
 import StarshipsSection from '~/components/StarshipsSection.vue'
-
-// Define interfaces
-interface Person {
-  name: string;
-  height: string;
-  mass: string;
-  hair_color: string;
-  skin_color: string;
-  eye_color: string;
-  birth_year: string;
-  gender: string;
-  homeworld: string;
-  films: string[];
-  species: string[];
-  vehicles: string[];
-  starships: string[];
-  created: string;
-  edited: string;
-  url: string;
-}
-
-interface Film {
-  title: string;
-  url: string;
-}
-
-interface Vehicle {
-  name: string;
-  url: string;
-}
-
-interface Starship {
-  name: string;
-  url: string;
-}
-
-interface Homeworld {
-  name: string;
-  url: string;
-}
+import { Person } from '~/sw-types/person'
+import { Film } from '~/sw-types/film'
+import { Vehicle } from '~/sw-types/vehicle'
+import { Starship } from '~/sw-types/starship'
+import { Homeworld } from '~/sw-types/homeworld'
 
 const route = useRoute()
 const person = ref<Person | null>(null)
@@ -114,12 +76,12 @@ const fetchPerson = async (id: string) => {
 }
 
 const fetchAdditionalDetails = async (person: Person) => {
-  await Promise.all([
-    fetchFilms(person.films),
-    fetchVehicles(person.vehicles),
-    fetchStarships(person.starships),
-    fetchHomeworld(person.homeworld)
-  ])
+  const filmsPromise = fetchFilms(person.films);
+  const vehiclesPromise = fetchVehicles(person.vehicles);
+  const starshipsPromise = fetchStarships(person.starships);
+  const homeworldPromise = person.homeworld ? fetchHomeworld(person.homeworld) : Promise.resolve();
+
+  await Promise.all([filmsPromise, vehiclesPromise, starshipsPromise, homeworldPromise]);
 }
 
 const fetchFilms = async (filmUrls: string[]) => {
@@ -166,3 +128,12 @@ onMounted(() => {
   fetchPerson(id)
 })
 </script>
+
+<style scoped>
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+</style>

@@ -1,6 +1,5 @@
 <template>
   <div class="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center">
-    
     <v-container>
       <v-row justify="center">
         <div v-if="loading" class="flex justify-center items-center py-4">
@@ -38,43 +37,15 @@
   </div>
 </template>
 
-
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
 import FilmSection from '~/components/FilmSection.vue'
 import PilotsSection from '~/components/PilotsSection.vue'
-
-// Define interfaces
-interface Starship {
-  name: string;
-  model: string;
-  manufacturer: string;
-  cost_in_credits: string;
-  length: string;
-  max_atmosphering_speed: string;
-  crew: string;
-  passengers: string;
-  cargo_capacity: string;
-  consumables: string;
-  starship_class: string;
-  hyperdrive_rating: string;
-  MGLT: string;
-  pilots: string[];
-  films: string[];
-  url: string;
-}
-
-interface Pilot {
-  name: string;
-  url: string;
-}
-
-interface Film {
-  title: string;
-  url: string;
-}
+import { Starship } from '~/sw-types/starship'
+import { Pilot } from '~/sw-types/pilot'
+import { Film } from '~/sw-types/film'
 
 const route = useRoute()
 const starship = ref<Starship | null>(null)

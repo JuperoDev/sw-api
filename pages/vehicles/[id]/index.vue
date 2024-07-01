@@ -1,6 +1,5 @@
 <template>
   <div class="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center">
-    
     <v-container>
       <v-row justify="center">
         <div v-if="loading" class="flex justify-center items-center py-4">
@@ -36,41 +35,15 @@
   </div>
 </template>
 
-
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
 import FilmSection from '~/components/FilmSection.vue'
 import PilotsSection from '~/components/PilotsSection.vue'
-
-// Define interfaces
-interface Vehicle {
-  name: string;
-  model: string;
-  manufacturer: string;
-  cost_in_credits: string;
-  length: string;
-  max_atmosphering_speed: string;
-  crew: string;
-  passengers: string;
-  cargo_capacity: string;
-  consumables: string;
-  vehicle_class: string;
-  pilots: string[];
-  films: string[];
-  url: string;
-}
-
-interface Pilot {
-  name: string;
-  url: string;
-}
-
-interface Film {
-  title: string;
-  url: string;
-}
+import { Vehicle } from '~/sw-types/vehicle'
+import { Pilot } from '~/sw-types/pilot'
+import { Film } from '~/sw-types/film'
 
 const route = useRoute()
 const vehicle = ref<Vehicle | null>(null)
@@ -95,8 +68,8 @@ const fetchVehicle = async (id: string) => {
 
 const fetchAdditionalDetails = async (vehicle: Vehicle) => {
   await Promise.all([
-    fetchPilots(vehicle.pilots),
-    fetchFilms(vehicle.films)
+    fetchPilots(vehicle.pilots ?? []),
+    fetchFilms(vehicle.films ?? [])
   ])
 }
 

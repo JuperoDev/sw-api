@@ -1,9 +1,8 @@
 <template>
   <div class="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center">
-    
     <v-container>
       <v-row justify="center">
-        <div v-if="loading" class="flex justify-center  mt-10 items-center py-4">
+        <div v-if="loading" class="flex justify-center mt-10 items-center py-4">
           <v-progress-circular indeterminate color="teal" size="64"></v-progress-circular>
         </div>
         <div v-else-if="error" class="text-red-500 text-center lg:text-left py-4">
@@ -41,42 +40,13 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
-
 import HomeworldSection from '~/components/HomeworldSection.vue'
 import CharactersSection from '~/components/CharactersSection.vue'
 import FilmSection from '~/components/FilmSection.vue'
-
-// Define interfaces
-interface Species {
-  name: string;
-  classification: string;
-  designation: string;
-  average_height: string;
-  skin_colors: string;
-  hair_colors: string;
-  eye_colors: string;
-  average_lifespan: string;
-  homeworld: string;
-  language: string;
-  people: string[];
-  films: string[];
-  url: string;
-}
-
-interface Person {
-  name: string;
-  url: string;
-}
-
-interface Film {
-  title: string;
-  url: string;
-}
-
-interface Homeworld {
-  name: string;
-  url: string;
-}
+import { Species } from '~/sw-types/species'
+import { Person } from '~/sw-types/person'
+import { Film } from '~/sw-types/film'
+import { Homeworld } from '~/sw-types/homeworld'
 
 const route = useRoute()
 const species = ref<Species | null>(null)
@@ -101,14 +71,14 @@ const fetchSpecies = async (id: string) => {
 }
 
 const fetchAdditionalDetails = async (species: Species) => {
-  await Promise.all([
-    fetchHomeworld(species.homeworld),
-    fetchPeople(species.people),
-    fetchFilms(species.films)
-  ])
+  const homeworldPromise = species.homeworld ? fetchHomeworld(species.homeworld) : Promise.resolve();
+  const peoplePromise = species.people ? fetchPeople(species.people) : Promise.resolve();
+  const filmsPromise = species.films ? fetchFilms(species.films) : Promise.resolve();
+  
+  await Promise.all([homeworldPromise, peoplePromise, filmsPromise]);
 }
 
-const fetchHomeworld = async (homeworldUrl: string) => {
+const fetchHomeworld = async (homeworldUrl?: string) => {
   if (homeworldUrl) {
     try {
       const response = await axios.get<Homeworld>(homeworldUrl)
@@ -119,23 +89,27 @@ const fetchHomeworld = async (homeworldUrl: string) => {
   }
 }
 
-const fetchPeople = async (peopleUrls: string[]) => {
-  const peoplePromises = peopleUrls.map(url => axios.get<Person>(url))
-  try {
-    const peopleResponses = await Promise.all(peoplePromises)
-    people.value = peopleResponses.map(response => response.data)
-  } catch (err) {
-    console.error('Failed to fetch people', err)
+const fetchPeople = async (peopleUrls?: string[]) => {
+  if (peopleUrls) {
+    const peoplePromises = peopleUrls.map(url => axios.get<Person>(url))
+    try {
+      const peopleResponses = await Promise.all(peoplePromises)
+      people.value = peopleResponses.map(response => response.data)
+    } catch (err) {
+      console.error('Failed to fetch people', err)
+    }
   }
 }
 
-const fetchFilms = async (filmUrls: string[]) => {
-  const filmPromises = filmUrls.map(url => axios.get<Film>(url))
-  try {
-    const filmResponses = await Promise.all(filmPromises)
-    films.value = filmResponses.map(response => response.data)
-  } catch (err) {
-    console.error('Failed to fetch films', err)
+const fetchFilms = async (filmUrls?: string[]) => {
+  if (filmUrls) {
+    const filmPromises = filmUrls.map(url => axios.get<Film>(url))
+    try {
+      const filmResponses = await Promise.all(filmPromises)
+      films.value = filmResponses.map(response => response.data)
+    } catch (err) {
+      console.error('Failed to fetch films', err)
+    }
   }
 }
 

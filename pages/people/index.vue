@@ -43,7 +43,7 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
-import { Person } from '~/sw-types/person'
+import { Person } from '~/sw-types/general-interface'
 import { ApiResponse } from '~/sw-types/apiResponse'
 
 const page = ref(1)

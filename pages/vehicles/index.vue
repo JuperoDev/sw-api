@@ -44,7 +44,7 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
-import { Vehicle } from '~/sw-types/vehicle'
+import { Vehicle } from '~/sw-types/general-interface'
 import { ApiResponse } from '~/sw-types/apiResponse'
 
 const page = ref(1)

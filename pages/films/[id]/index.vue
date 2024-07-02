@@ -1,11 +1,22 @@
 <template>
-  <div class="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center relative">
+  <div
+    class="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center relative"
+  >
     <v-container>
-      <v-container class="max-w-full text-center mt-10 lg:text-left mb-8 lg:mb-0">
+      <v-container
+        class="max-w-full text-center mt-10 lg:text-left mb-8 lg:mb-0"
+      >
         <div v-if="loading" class="flex justify-center items-center py-4">
-          <v-progress-circular indeterminate color="teal" size="64"></v-progress-circular>
+          <v-progress-circular
+            indeterminate
+            color="teal"
+            size="64"
+          ></v-progress-circular>
         </div>
-        <div v-else-if="error" class="text-red-500 text-center lg:text-left py-4">
+        <div
+          v-else-if="error"
+          class="text-red-500 text-center lg:text-left py-4"
+        >
           An error occurred: {{ error }}
         </div>
         <div v-else-if="film" class="my-4 p-4 bg-gray-800 rounded-lg">
@@ -37,44 +48,44 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import axios from 'axios'
-import CharactersSection from '~/components/CharactersSection.vue'
-import PlanetsSection from '~/components/PlanetsSection.vue'
-import VehiclesSection from '~/components/VehiclesSection.vue'
-import StarshipsSection from '~/components/StarshipsSection.vue'
-import SpeciesSection from '~/components/SpeciesSection.vue'
-import { Film } from '~/sw-types/film'
-import { Person } from '~/sw-types/person'
-import { Planet } from '~/sw-types/planet'
-import { Vehicle } from '~/sw-types/vehicle'
-import { Starship } from '~/sw-types/starship'
-import { Species } from '~/sw-types/species'
+import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import axios from "axios";
 
-const route = useRoute()
-const film = ref<Film | null>(null)
-const characters = ref<Person[]>([])
-const planets = ref<Planet[]>([])
-const starships = ref<Starship[]>([])
-const vehicles = ref<Vehicle[]>([])
-const species = ref<Species[]>([])
-const loading = ref(true)
-const error = ref<string | null>(null)
+import {
+  Film,
+  Person,
+  Planet,
+  Vehicle,
+  Starship,
+  Species,
+} from "~/sw-types/general-interface";
+
+const route = useRoute();
+const film = ref<Film | null>(null);
+const characters = ref<Person[]>([]);
+const planets = ref<Planet[]>([]);
+const starships = ref<Starship[]>([]);
+const vehicles = ref<Vehicle[]>([]);
+const species = ref<Species[]>([]);
+const loading = ref(true);
+const error = ref<string | null>(null);
 
 const fetchFilm = async (id: string) => {
-  loading.value = true
-  error.value = null
+  loading.value = true;
+  error.value = null;
   try {
-    const response = await axios.get<Film>(`https://swapi.dev/api/films/${id}/`)
-    film.value = response.data
-    await fetchAdditionalDetails(response.data)
+    const response = await axios.get<Film>(
+      `https://swapi.dev/api/films/${id}/`
+    );
+    film.value = response.data;
+    await fetchAdditionalDetails(response.data);
   } catch (err) {
-    error.value = 'Failed to fetch film details'
+    error.value = "Failed to fetch film details";
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 
 const fetchAdditionalDetails = async (film: Film) => {
   await Promise.all([
@@ -82,62 +93,62 @@ const fetchAdditionalDetails = async (film: Film) => {
     fetchPlanets(film.planets),
     fetchStarships(film.starships),
     fetchVehicles(film.vehicles),
-    fetchSpecies(film.species)
-  ])
-}
+    fetchSpecies(film.species),
+  ]);
+};
 
 const fetchCharacters = async (characterUrls: string[]) => {
-  const characterPromises = characterUrls.map(url => axios.get<Person>(url))
+  const characterPromises = characterUrls.map((url) => axios.get<Person>(url));
   try {
-    const characterResponses = await Promise.all(characterPromises)
-    characters.value = characterResponses.map(response => response.data)
+    const characterResponses = await Promise.all(characterPromises);
+    characters.value = characterResponses.map((response) => response.data);
   } catch (err) {
-    console.error('Failed to fetch characters', err)
+    console.error("Failed to fetch characters", err);
   }
-}
+};
 
 const fetchPlanets = async (planetUrls: string[]) => {
-  const planetPromises = planetUrls.map(url => axios.get<Planet>(url))
+  const planetPromises = planetUrls.map((url) => axios.get<Planet>(url));
   try {
-    const planetResponses = await Promise.all(planetPromises)
-    planets.value = planetResponses.map(response => response.data)
+    const planetResponses = await Promise.all(planetPromises);
+    planets.value = planetResponses.map((response) => response.data);
   } catch (err) {
-    console.error('Failed to fetch planets', err)
+    console.error("Failed to fetch planets", err);
   }
-}
+};
 
 const fetchStarships = async (starshipUrls: string[]) => {
-  const starshipPromises = starshipUrls.map(url => axios.get<Starship>(url))
+  const starshipPromises = starshipUrls.map((url) => axios.get<Starship>(url));
   try {
-    const starshipResponses = await Promise.all(starshipPromises)
-    starships.value = starshipResponses.map(response => response.data)
+    const starshipResponses = await Promise.all(starshipPromises);
+    starships.value = starshipResponses.map((response) => response.data);
   } catch (err) {
-    console.error('Failed to fetch starships', err)
+    console.error("Failed to fetch starships", err);
   }
-}
+};
 
 const fetchVehicles = async (vehicleUrls: string[]) => {
-  const vehiclePromises = vehicleUrls.map(url => axios.get<Vehicle>(url))
+  const vehiclePromises = vehicleUrls.map((url) => axios.get<Vehicle>(url));
   try {
-    const vehicleResponses = await Promise.all(vehiclePromises)
-    vehicles.value = vehicleResponses.map(response => response.data)
+    const vehicleResponses = await Promise.all(vehiclePromises);
+    vehicles.value = vehicleResponses.map((response) => response.data);
   } catch (err) {
-    console.error('Failed to fetch vehicles', err)
+    console.error("Failed to fetch vehicles", err);
   }
-}
+};
 
 const fetchSpecies = async (speciesUrls: string[]) => {
-  const speciesPromises = speciesUrls.map(url => axios.get<Species>(url))
+  const speciesPromises = speciesUrls.map((url) => axios.get<Species>(url));
   try {
-    const speciesResponses = await Promise.all(speciesPromises)
-    species.value = speciesResponses.map(response => response.data)
+    const speciesResponses = await Promise.all(speciesPromises);
+    species.value = speciesResponses.map((response) => response.data);
   } catch (err) {
-    console.error('Failed to fetch species', err)
+    console.error("Failed to fetch species", err);
   }
-}
+};
 
 onMounted(() => {
-  const id = route.params.id as string
-  fetchFilm(id)
-})
+  const id = route.params.id as string;
+  fetchFilm(id);
+});
 </script>

@@ -9,6 +9,8 @@
       label="Search for a character"
       @change="onCharacterSelect"
     ></v-autocomplete>
+
+    <p>{{ router }}</p>
   </div>
 </template>
 
